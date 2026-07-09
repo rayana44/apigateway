@@ -1,0 +1,29 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: API-GATEWAY
+
+  cloud:
+    gateway:
+      routes:
+        - id: account-service
+          uri: lb://ACCOUNT-SERVICE
+          predicates:
+            - Path=/api/accounts/**
+
+        - id: card-service
+          uri: lb://CARD-SERVICE
+          predicates:
+            - Path=/api/cards/**
+
+        - id: loan-service
+          uri: lb://LOAN-SERVICE
+          predicates:
+            - Path=/api/loans/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
